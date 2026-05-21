@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { generateRandomString } = require('../utils/helper');
-const { USER_TYPES } = require('../constants/enums');
+const { USER_ROLE_TYPES, LOCALE_TYPE } = require('../constants/enums');
 
 
 const userSchema = new mongoose.Schema(
@@ -16,9 +16,19 @@ const userSchema = new mongoose.Schema(
             type : Boolean,
             default : false
         },
-        type : {
+        role : {
             type : String,
-            enum: Object.values(USER_TYPES)
+            enum: Object.values(USER_ROLE_TYPES) ,
+            required : true
+        },
+        locale : {
+            type : String,
+            enum: Object.values(LOCALE_TYPE) ,
+            default : LOCALE_TYPE.ENGLISH
+        },
+        timezone : {
+            type : String,
+            required : true
         },
         status : {
             type : String ,

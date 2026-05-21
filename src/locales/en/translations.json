@@ -6,23 +6,32 @@
 		"first_name_required" : "First name is required",
 		"first_name_length" : "First name string length between 2 to 30",
 		"last_name_required" : "Last name is required",
-		"last_name_length" : "Last name string length between 2 to 30"
+		"last_name_length" : "Last name string length between 2 to 30",
+		"user_id_required" : "User id is required",
+		"otp_required" : "OTP is required",
+		"otp_length" : "OTP must be 6 digits" ,
+		"otp_verification_type_invalid" : "Invalid OTP verification type.",
+		"otp_verification_type_required" : "OTP verification type is required."
 	},
 	"error": {
 		"something_went_wrong": "Something went wrong, please try again later.",
 		"invalid_credentials": "Invalid credentials provided." ,
 		"user_already_exists" : "User already exist.",
-		"error_in_sending_verification_otp" : "There is error in sending OTP. Please retry again."
+		"error_in_sending_verification_otp" : "There is error in sending OTP. Please retry again." ,
+		"invalid_timezone" : "Invalid timezone provided.",
+		"invalid_or_expired_verification_token" : "Provided OTP is invalid or expired." ,
+		"user_not_found" : "User not found with provided phone number."
 	},
 	"success" : {
-		"record_created" : "Record created successfully."
+		"record_created" : "Record created successfully.",
+		"otp_verified" : "OTP verified successfully." ,
+		"login_otp_sent": "You will get an OTP to the provided phone number." ,
+		"profile_updated" : "Profile updated successfully."
 	},
 	"message": {
-		"verify_otp": "Your OTP is {{otp}}. Please enter this code to verify your phone number.",
-		"otp_sent": "OTP has been sent to your phone number.",
-		"registration_success": "Registration successful. Please verify your email.",
-		"login_success": "Login successful.",
-		"email_verified": "Email has been successfully verified."
+		"verify_otp": "Hello {{first_name}}, welcome to Uber System App! Your OTP for account verification is {{otp}}. This code is valid for a limited time. Please do not share it with anyone." ,
+		"login_verify_otp": "Hello {{first_name}}, welcome to Uber System App! Your OTP for login is {{otp}}. This code is valid for a limited time. Please do not share it with anyone." ,
+		"otp_verified_successfully": "You're OTP has been successfully verified."
 	},
 	"phone_valid_length": "phone_valid_length"
 }

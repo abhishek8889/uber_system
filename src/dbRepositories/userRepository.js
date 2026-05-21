@@ -1,7 +1,8 @@
 const User = require('../modals/User');
 
-exports.createUser = async (data) => {
-    return await User.create(data);
+exports.createUser = async (data, session = null) => {
+    const [user] = await User.create([data], session ? { session } : {});
+    return user;
 };
 
 exports.findUserByPhone = async (phone) => {
@@ -11,3 +12,17 @@ exports.findUserByPhone = async (phone) => {
 exports.findUserById = async (id) => {
     return await User.findById(id);
 };
+
+
+exports.findByIdAndUpdate = async (id, data, session = null) => {
+    const user = await User.findByIdAndUpdate(
+        id,
+        data,
+        { 
+            new: true ,
+            session
+        }
+    );
+    return user;
+};
+

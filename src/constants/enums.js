@@ -1,4 +1,4 @@
-exports.USER_TYPES = {
+exports.USER_ROLE_TYPES = {
     PROVIDER: 'provider',
     CUSTOMER: 'customer',
     ADMIN: 'admin'
@@ -7,4 +7,15 @@ exports.USER_TYPES = {
 exports.VERIFICATION_TOKEN_TYPE = {
     REGISTER: 'register',
     LOGIN: 'login'
+}
+
+
+exports.LOCALE_TYPE = {
+    ENGLISH : 'en',
+    HINDI : 'hi'
+}
+
+exports.STATUS = {
+    ACTIVE : 'active',
+    IN_ACTIVE : 'in_active'
 }
