@@ -23,6 +23,7 @@ app.use(i18nMiddleware.handle(i18n));
 // Routes
 app.use('/api',routes);
 
+
 app.listen(envVariables.PORT, () => {
   console.log(`Your app (${envVariables.APP_NAME}) has been started on port ${envVariables.PORT}.URL http://localhost:${envVariables.PORT}`)
 })
