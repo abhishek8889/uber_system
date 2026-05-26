@@ -1,3 +1,4 @@
+const {MAX_DISTANCE_RADIUS} = require("../constants/constants");
 const ProviderProfile = require("../modals/ProviderProfile");
 
 exports.upsertProviderProfile = async (filter, data , session = null) => {
@@ -20,63 +21,69 @@ exports.searchProvidersByService = async () => {
 
 exports.searchProvidersForCustomer = async (
     clientLatitude,
-    clientLongitude
+    clientLongitude 
 ) => {
     try {
-        const providers = await ProviderProfile.aggregate([
+        const providers =  await ProviderProfile.aggregate([
             {
                 $geoNear: {
-                    near: {
+                    near: { 
                         type: "Point",
-                        coordinates: [clientLongitude, clientLatitude] // [lng, lat]
+                        coordinates: [Number(clientLongitude) , Number(clientLatitude)  ]
                     },
-                    distanceField: "distance",
+                    distanceField: "calculatedDistance",
                     spherical: true,
-                    key: "location"
-                    // maxDistance: 10000 // optional
-                }
-            },
-            {
+                    maxDistance: MAX_DISTANCE_RADIUS,
+
+                    query: {
+                        $or : [
+                            {is_available: true },
+                            {is_online: true}
+                        ]
+                    }
+                },
+            }
+            ,{
                 $match: {
-                    is_online: true,
-                    is_available: true,
                     $expr: {
-                        $lte: ["$distance", "$service_radius"]
+                        $lte: ["$calculatedDistance", "$service_radius"]
                     }
                 }
-            },
+            } ,
             {
                 $lookup: {
-                    from: "users", // actual Mongo collection name
-                    localField: "user_id",
-                    foreignField: "_id",
+                    from: "users",
+                    let: { userId: "$user_id" },
+
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $eq: ["$_id", "$$userId"]
+                                }
+                            }
+                        },
+                        {
+                            $project: {
+                                first_name: 1,
+                                last_name: 1,
+                                phone: 1,
+                                profile_image: 1
+                            }
+                        }
+                    ],
+
                     as: "user"
                 }
             },
             {
-                $unwind: {
-                    path: "$user",
-                    preserveNullAndEmptyArrays: false
-                }
-            },
-            {
-                $project: {
-                    _id: 1,
-                    user_id: 1,
-                    distance: 1,
-                    service_radius: 1,
-                    rating: 1,
-                    service_categories: 1,
-                    "user._id": 1,
-                    "user.first_name": 1,
-                    "user.last_name": 1,
-                    "user.email": 1
-                }
+                $unwind: "$user"
             }
         ]);
 
         return providers;
     } catch (error) {
+        console.log("Error in searchProvidersForCustomer:", error);
         throw error;
     }
 };

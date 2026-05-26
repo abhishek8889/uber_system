@@ -171,19 +171,94 @@
 // }
 
 
-const arr = [64, 34, 25, 12, 22, 11, 90];
+// const arr = [64, 34, 25, 12, [22, 11, [90 ,60]]];
 
 
-function sort(arr) {
-    for(let i = 0 ; i < arr.length ; i ++ ){
-        let first = arr[i];
-        let second = arr[i + 1];
-        if(first > second){
-            let old_second = second;
-            arr[i + 1] = first;
-            arr[i] = old_second;
-        }
-        console.log(arr);
-    }
-}
-sort(arr);
+//  ########### Spread Operator ####### 
+// const newR = [...arr , 99 ,88];
+// console.log(newR);
+// console.log(arr);
+
+
+// let user = {
+//     "name" : "Abhishek",
+//     "age" : 25
+// }
+
+// let userDetails  = {
+//     ...user ,
+//     first_name : "Abhishek",
+//     last_name : "Sharma" ,
+// }
+// let name  = "abhsihek";
+
+// console.log(...name);
+
+
+
+//  ############# Rest Parameters #############
+// const num = "5"  + 2 ;
+
+// console.log(typeof num)
+// console.log(num)
+
+// function numFun(a , b , ...restParam){
+//     let newArr = [ a ,b , ...restParam];
+//     // console.log(newArr);
+//     let [var_1  , ...var_rest] = newArr;
+    
+//     console.log(var_1 )
+//     console.log(var_rest)
+// }
+
+// numFun(5 , 9 , 50 , 40 , 80 ,78 ,90);
+
+
+//  ############# Object Literal #############
+
+
+// function hello (full_name , my_age){
+//     return {
+//          full_name,
+//          my_age
+//     }
+// }
+
+// const fullName = "abhishek sharma"
+
+// const obj = {
+//     fullName
+// }
+
+// console.log(obj)
+
+//  ########## For Of ############## 
+
+// let arr2 = [3, 5,2,5];
+
+// for(let ar of arr2){
+//     console.log(ar);
+// }
+
+// const greet = () => {
+//     console.log('Hello')
+//     return "ghelo"
+// }
+// console.log(greet())
+
+// const test = (x ,y) => x * y ;
+
+
+// console.log(test(4 ,9))
+
+// var a ;
+
+// console.log(a)
+
+// a = 50;
+
+// const arra = [5 , 9 , 50 , 40 , 80 ,78 ];
+
+// arra.forEach( (val , ind) => {
+//     console.log(`ind ${ind} : val ${val}`);
+// });

@@ -6,9 +6,8 @@ const providerProfileRepository = require('../../dbRepositories/providerProfileR
 exports.searchProvider = async (reqData) => {
     const { latitude , longitude , service , requirement } = reqData;
     try{
-        
         const serachedProviders =  await providerProfileRepository.searchProvidersForCustomer(latitude, longitude);
-        return searchedProviders;
+        return serachedProviders;
     } catch (error) {
         throw error;
     }

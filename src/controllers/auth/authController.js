@@ -4,6 +4,7 @@ const authService = require('../../services/auth/authService');
 const mongoose = require('mongoose');
 const { VERIFICATION_TOKEN_TYPE, USER_ROLE_TYPES } = require('../../constants/enums');
 
+
 exports.register = async (req, res) => {
     try {
         const user = await authService.register(req.body);
