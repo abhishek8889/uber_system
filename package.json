@@ -8,6 +8,7 @@
     "dev": "nodemon index.js"
   },
   "dependencies": {
+    "cloudinary": "^2.10.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
@@ -22,6 +23,7 @@
     "moment-timezone": "^0.6.2",
     "mongoose": "^9.6.2",
     "nodemon": "^3.1.14",
+    "openai": "^6.39.0",
     "twilio": "^6.0.2"
   }
 }

@@ -51,6 +51,11 @@ const providerProfileSchema = new mongoose.Schema(
       default: []
     },
 
+    service_description: {
+      type: String,
+      default: ""
+    },
+
     rating: {
       type: Number,
       min: 0,

@@ -193,6 +193,7 @@ exports.providerProfileUpdate = async (reqData) => {
     const { 
         first_name ,
         last_name ,
+        profile_image ,
         latitude ,
         longitude  ,
         service_radius  ,
@@ -206,8 +207,6 @@ exports.providerProfileUpdate = async (reqData) => {
     session.startTransaction();
 
     try {
-     
-
         const updateInUser = Object.fromEntries(
             Object.entries(reqData).filter(
                 ([key ,value]) => 

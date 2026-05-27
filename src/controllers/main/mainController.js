@@ -18,3 +18,20 @@ exports.searchProvider = async (req, res) => {
         return res.status(status).json(errorResponse(message, req.t(error.message)));
     }
 };
+
+exports.uploadImage = async(req , res) => {
+    try{
+        const image = req.files?.image  ?? null;
+        
+        const resp = await mainService.uploadImage(image);
+
+        return res.status(200).json(successResponse(req.t('success.image_uploaded_successfully'), resp));
+    } catch (error) {
+        const status = error.statusCode || 500;
+        const message = error.statusCode
+            ? req.t(error.message)
+            : req.t('error.something_went_wrong');
+
+        return res.status(status).json(errorResponse(message, req.t(error.message)));
+    }
+}

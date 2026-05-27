@@ -11,7 +11,8 @@
 		"otp_required" : "OTP is required",
 		"otp_length" : "OTP must be 6 digits" ,
 		"otp_verification_type_invalid" : "Invalid OTP verification type.",
-		"otp_verification_type_required" : "OTP verification type is required."
+		"otp_verification_type_required" : "OTP verification type is required." ,
+		"image_required" : "Image field is required."
 	},
 	"error": {
 		"something_went_wrong": "Something went wrong, please try again later.",
@@ -20,13 +21,15 @@
 		"error_in_sending_verification_otp" : "There is error in sending OTP. Please retry again." ,
 		"invalid_timezone" : "Invalid timezone provided.",
 		"invalid_or_expired_verification_token" : "Provided OTP is invalid or expired." ,
-		"user_not_found" : "User not found with provided phone number."
+		"user_not_found" : "User not found with provided phone number." ,
+		"error_in_uploading_image" : "There is error in uploading image. Please try again later."
 	},
 	"success" : {
 		"record_created" : "Record created successfully.",
 		"otp_verified" : "OTP verified successfully." ,
 		"login_otp_sent": "You will get an OTP to the provided phone number." ,
-		"profile_updated" : "Profile updated successfully."
+		"profile_updated" : "Profile updated successfully." ,
+		"image_uploaded_successfully" : "Image uploaded successfully."
 	},
 	"message": {
 		"verify_otp": "Hello {{first_name}}, welcome to Uber System App! Your OTP for account verification is {{otp}}. This code is valid for a limited time. Please do not share it with anyone." ,

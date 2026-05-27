@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema(
     {
         first_name: { type: String, required: true, trim: true },
         last_name:  { type: String, required: true, trim: true },
+        profile_image: { type: String, default: "" },
         phone:      { type: String, required: true, unique: true, trim: true },
         username : {
             type : String,
@@ -33,7 +34,7 @@ const userSchema = new mongoose.Schema(
         status : {
             type : String ,
             default : 'in_active'
-        }
+        } 
     },
     { timestamps: true }
 );

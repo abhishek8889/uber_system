@@ -21,7 +21,10 @@ exports.searchProvidersByService = async () => {
 
 exports.searchProvidersForCustomer = async (
     clientLatitude,
-    clientLongitude 
+    clientLongitude ,
+    service ,
+    requirement ,
+    category
 ) => {
     try {
         const providers =  await ProviderProfile.aggregate([
@@ -36,14 +39,28 @@ exports.searchProvidersForCustomer = async (
                     maxDistance: MAX_DISTANCE_RADIUS,
 
                     query: {
-                        $or : [
-                            {is_available: true },
-                            {is_online: true}
+                        $and: [
+                            {
+                                $or: [
+                                    { is_available: true },
+                                    { is_online: true }
+                                ]
+                            },
+
+                            {
+                                service_categories: {
+                                    $in:[
+                                        // service , ...category
+                                        new RegExp(`^${service}`, "i"),
+                                        ...category.map(val => new RegExp(`^${val}`, "i"))
+                                    ] ,
+                                }
+                            }
                         ]
                     }
                 },
-            }
-            ,{
+            },
+            {
                 $match: {
                     $expr: {
                         $lte: ["$calculatedDistance", "$service_radius"]
@@ -83,7 +100,6 @@ exports.searchProvidersForCustomer = async (
 
         return providers;
     } catch (error) {
-        console.log("Error in searchProvidersForCustomer:", error);
         throw error;
     }
 };
