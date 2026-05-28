@@ -22,14 +22,20 @@
 		"invalid_timezone" : "Invalid timezone provided.",
 		"invalid_or_expired_verification_token" : "Provided OTP is invalid or expired." ,
 		"user_not_found" : "User not found with provided phone number." ,
-		"error_in_uploading_image" : "There is error in uploading image. Please try again later."
+		"error_in_uploading_image" : "There is error in uploading image. Please try again later.",
+		"you_have_already_a_pending_request" : "You already have a pending service request. Please wait for it to be accepted or rejected before making a new request.",
+		"there_is_no_pending_req_to_cancel" : "There is no pending request to cancel." ,
+		"insufficient_role" : "Forbidden: Insufficient role"
 	},
 	"success" : {
 		"record_created" : "Record created successfully.",
 		"otp_verified" : "OTP verified successfully." ,
 		"login_otp_sent": "You will get an OTP to the provided phone number." ,
 		"profile_updated" : "Profile updated successfully." ,
-		"image_uploaded_successfully" : "Image uploaded successfully."
+		"image_uploaded_successfully" : "Image uploaded successfully." ,
+		"req_canceled_successfully" : "Request canceled successfully." ,
+		"record_found" : "Record found." ,
+		"request_updated" : "Request Updated."
 	},
 	"message": {
 		"verify_otp": "Hello {{first_name}}, welcome to Uber System App! Your OTP for account verification is {{otp}}. This code is valid for a limited time. Please do not share it with anyone." ,

@@ -19,3 +19,11 @@ exports.STATUS = {
     ACTIVE : 'active',
     IN_ACTIVE : 'in_active'
 }
+
+exports.SERVICE_REQUEST_STATUS = {
+    PENDING : 'pending',
+    ACCEPTED : 'accepted',
+    REJECTED : 'rejected',
+    COMPLETED : 'completed'
+}
+

@@ -4,6 +4,7 @@ const authController = require('../../controllers/auth/authController');
 const {validateRegister, validateVerifyOtp, validateSendLoginOtp} = require('../../requestValidatations/auth/authValidations');
 const validate = require('../../middlewares/validationHandler');
 const { authMiddleware } = require('../../middlewares/authMiddleware');
+const { USER_ROLE_TYPES } = require('../../constants/enums');
 
 // ############## Authentication Routes #############
 router.post('/register',validateRegister(),validate,authController.register);
@@ -13,7 +14,7 @@ router.post('/send-login-otp',validateSendLoginOtp(),validate,authController.sen
 router.post('/verify-otp',validateVerifyOtp(),validate,authController.verifyOtp);
 
 // ############## Provider Profile Update #############
-router.post('/provider-profile-update',authMiddleware,validate,authController.providerProfileUpdate);
+router.post('/provider-profile-update',authMiddleware(USER_ROLE_TYPES.PROVIDER),validate,authController.providerProfileUpdate);
 
 
 

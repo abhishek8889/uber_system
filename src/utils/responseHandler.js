@@ -9,3 +9,9 @@ exports.errorResponse = (message, loggedError = null) => ({
   message,
   loggedError
 }); 
+
+exports.returnError = (message, statusCode = 500) => {
+    const error = new Error(message);
+    error.statusCode = statusCode;
+    throw error;
+};
