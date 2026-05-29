@@ -1,6 +1,7 @@
 const { body } = require('express-validator');
 const { VERIFICATION_TOKEN_TYPE } = require('../../constants/enums');
-
+const serviceRequestRepository = require('../../dbRepositories/serviceRequestRepository'); 
+const mongoose = require('mongoose');
 
 exports.validateUploadImage = () => {
     return [
@@ -10,5 +11,45 @@ exports.validateUploadImage = () => {
             }
             return true;
         })
+    ];
+}
+
+exports.validateProposalReq = () => {
+    return [
+        body('request_id')
+            .notEmpty()
+            .withMessage('validation.user_id_required')
+            .custom((value) => {
+                if (!mongoose.Types.ObjectId.isValid(value)) {
+                    throw new Error('validation.invalid_id_format');
+                }
+                return true;
+            })
+            .custom (async (value) => {
+                const exists  = await serviceRequestRepository.findOne({_id : value});
+                if(!exists) {
+                    throw new Error('validation.request_not_found')
+                }
+
+                return true;
+            }),
+        
+        body('proposal')
+            .isLength({ max: 1000 })
+            .withMessage('validation.proposal_too_long'),
+
+        body('provider_quotation')
+            .isNumeric()
+            .withMessage('validation.quotation_should_be_number'),
+        
+        body('available_at')
+            .optional({checkFalsy : true})
+            .isISO8601()
+            .withMessage('validation.available_at_should_be_date'),
+        
+        body('expected_duration')
+            .optional({checkFalsy : true})
+            .isLength({ max: 500 })
+            .withMessage('validation.duration_character_lessthan_500')
     ];
 }

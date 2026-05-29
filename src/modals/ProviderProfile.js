@@ -10,7 +10,10 @@ const providerProfileSchema = new mongoose.Schema(
       ref: "User",
       required: true
     },
-
+    location_name : {
+      type : String,
+      required : true
+    },
     location: {
       type: {
         type: String,

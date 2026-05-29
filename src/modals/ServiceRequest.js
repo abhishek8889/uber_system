@@ -13,6 +13,10 @@ const ServiceRequestSchema = new mongoose.Schema (
             ref: "User",
             required: true
         } ,
+        location_name : {
+            type : String,
+            required : true
+        },
         customer_location: {
             type: {
                 type: String,
@@ -65,6 +69,9 @@ const ServiceRequestSchema = new mongoose.Schema (
     {timestamps: true }
 );
 
+ServiceRequestSchema.index({
+    customer_location: "2dsphere"
+});
 
 const ServiceRequest = mongoose.model("ServiceRequest", ServiceRequestSchema , "service_requests" );
 

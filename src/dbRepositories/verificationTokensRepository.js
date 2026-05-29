@@ -25,7 +25,7 @@ exports.upsertToken = async (filter ,data , session = null) => {
 
 
 
-exports.findOne = async (data , session = null) => {
+exports.findOne = async (data ) => {
     const record = await VerificationToken.findOne(data);
     return record;
 };

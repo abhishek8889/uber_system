@@ -12,7 +12,12 @@
 		"otp_length" : "OTP must be 6 digits" ,
 		"otp_verification_type_invalid" : "Invalid OTP verification type.",
 		"otp_verification_type_required" : "OTP verification type is required." ,
-		"image_required" : "Image field is required."
+		"image_required" : "Image field is required." ,
+		"quotation_should_be_number" : "Quotation should be in number.",
+		"available_at_should_be_date" : "Available at should be valid date." ,
+		"duration_should_be_number" : "Duration should be in number." ,
+		"proposal_too_long" : "Proposal too long maximum 1000 character allowed." ,
+		"duration_character_lessthan_500" : "Duration character cannot exceed 500 character."
 	},
 	"error": {
 		"something_went_wrong": "Something went wrong, please try again later.",
@@ -25,7 +30,9 @@
 		"error_in_uploading_image" : "There is error in uploading image. Please try again later.",
 		"you_have_already_a_pending_request" : "You already have a pending service request. Please wait for it to be accepted or rejected before making a new request.",
 		"there_is_no_pending_req_to_cancel" : "There is no pending request to cancel." ,
-		"insufficient_role" : "Forbidden: Insufficient role"
+		"insufficient_role" : "Forbidden: Insufficient role" ,
+		"complete_profile_before_finding_jobs" : "Complete your profile before finding jobs" ,
+		"your_proposal_already_pending" : "Your proposal already in pending. You cannot send another proposal."
 	},
 	"success" : {
 		"record_created" : "Record created successfully.",
@@ -35,7 +42,9 @@
 		"image_uploaded_successfully" : "Image uploaded successfully." ,
 		"req_canceled_successfully" : "Request canceled successfully." ,
 		"record_found" : "Record found." ,
-		"request_updated" : "Request Updated."
+		"request_updated" : "Request Updated." ,
+		"service_request_list" : "Service request list." ,
+		"proposal_sent_successfully" : "Proposal sent successfully."
 	},
 	"message": {
 		"verify_otp": "Hello {{first_name}}, welcome to Uber System App! Your OTP for account verification is {{otp}}. This code is valid for a limited time. Please do not share it with anyone." ,

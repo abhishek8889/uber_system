@@ -8,11 +8,15 @@ const ProviderProfile = require("../../modals/ProviderProfile");
 const User = require("../../modals/User");
 const serviceRequestRepository = require('../../dbRepositories/serviceRequestRepository');
 const serviceNotificationRepository = require('../../dbRepositories/serviceNotificationRepository');
-const { SERVICE_REQUEST_STATUS } = require('../../constants/enums');
+const userRepository = require('../../dbRepositories/userRepository');
+const proposalRipository = require('../../dbRepositories/proposalRepository');
+const { SERVICE_REQUEST_STATUS, USER_ROLE_TYPES, PROPOSAL_ENUM } = require('../../constants/enums');
 const { returnError } = require('../../utils/responseHandler');
+const translator = require('../../utils/translator');
+
 
 exports.searchProvider = async (reqData) => {
-    const { latitude , longitude , service , requirement , category , customer_quotation , customer_id} = reqData;
+    const {location_name , latitude , longitude , service , requirement , category , customer_quotation , customer_id } = reqData;
     try{
         // ######### Check already pending request ################
 
@@ -28,6 +32,7 @@ exports.searchProvider = async (reqData) => {
         //  ############## Send Notification to the searched providers ##############
         const saveServiceRequest = await serviceRequestRepository.createServiceRequest({
             customer_id : customer_id ,
+            location_name : location_name,
             customer_location : {
                 type : "Point" ,
                 coordinates : [longitude , latitude]
@@ -67,7 +72,6 @@ exports.searchProvider = async (reqData) => {
                 }));
 
                 // ############ BULK INSERT NOTIFICATIONS ##############
-                
                 const notificationRecord = await serviceNotificationRepository.insertMany(notifications);
             } catch (error) {
                 // console.error("Background Provider Search Error:",error);
@@ -142,6 +146,83 @@ exports.providerRequestResponse = async (reqData) => {
         throw error;
     }finally {
         session.endSession();
+    }
+}
+
+// ############# Service Request List ##############
+
+exports.serviceRequestList = async (reqData) => {
+    try{
+        const {user_id} = reqData;
+        const [providerDetails] = await userRepository.userDetailsById(user_id );
+
+        if(!providerDetails.provider_profile || providerDetails.provider_profile == undefined){
+            returnError("error.complete_profile_before_finding_jobs",400);
+        }
+
+        // ######### Find Jobs ##########
+
+        const searchFilter = {
+            longitude : providerDetails?.provider_profile?.location?.coordinates[0],
+            latitude : providerDetails?.provider_profile?.location?.coordinates[1],
+            service_categories : providerDetails?.provider_profile?.service_categories ?? [],
+            service_radius : providerDetails?.provider_profile?.service_radius ?? constants.MAX_DISTANCE_RADIUS
+        }
+ 
+        const [requestedServicesList] = await serviceRequestRepository.searchServiceRequest(searchFilter);
+        
+        return requestedServicesList;
+    }catch (error) {
+        throw error;
+    }
+}
+
+//  ################### PROPOSAL SEND  ##############
+
+exports.sendProposal = async(reqData) => {
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
+    try{
+        const {request_id , proposal , media , provider_quotation , available_at , expected_duration } = reqData;
+  
+        //  ########## Allow Proposal only when Request is pending ##########
+
+        const requestDetail = await serviceRequestRepository.findOne({_id : request_id});
+
+        // console.log(requestDetail)
+
+        if(requestDetail.status !== SERVICE_REQUEST_STATUS.PENDING) {
+            return returnError(translator.translate('error.you_cannot_send_proposal_because_status_is_already', { status: requestDetail.status ?? "rejected" }) ,400);
+        }
+
+        return requestDetail;
+
+        const existingProposal = await proposalRipository.findOne({
+            request_id : request_id ,
+            provider_id : user_id 
+        });
+
+        if(existingProposal) {
+            returnError("error.your_proposal_already_pending")
+        }
+
+        const proposalResp  = await proposalRipository.create({
+            request_id : request_id ,
+            proposal : proposal ,
+            media : media ,
+            provider_quotation : provider_quotation ,
+            available_at : available_at ,
+            expected_duration : expected_duration
+        } , session);
+
+        await session.commitTransaction();
+        return proposalResp;
+    } catch (error) {
+        await session.abortTransaction();
+        throw error;
+    } finally {
+        session.endSession();   
     }
 }
 

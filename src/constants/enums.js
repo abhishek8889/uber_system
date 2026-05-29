@@ -27,3 +27,9 @@ exports.SERVICE_REQUEST_STATUS = {
     COMPLETED : 'completed'
 }
 
+exports.PROPOSAL_ENUM = {
+    PENDING : 'pending',
+    ACCEPTED : 'accepted',
+    REJECTED : 'rejected',
+    VIEWED : 'viewed'
+}

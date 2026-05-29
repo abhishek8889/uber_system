@@ -194,6 +194,7 @@ exports.providerProfileUpdate = async (reqData) => {
         first_name ,
         last_name ,
         profile_image ,
+        location_name ,
         latitude ,
         longitude  ,
         service_radius  ,
