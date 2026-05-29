@@ -52,6 +52,24 @@ exports.cancelServiceRequest = async ( req , res) => {
     } 
 }
 
+// ############ Notification List ###################
+
+
+exports.serviceNotificationList = async (req ,res) => {
+    try{
+        const resp = await mainService.serviceNotificationList({...req.body ,user_id : req.user._id});
+
+        return res.status(200).json(successResponse(req.t('success.request_updated'), resp));
+    } catch (error) {
+        const status = error.statusCode || 500;
+        const message = error.statusCode
+            ? req.t(error.message)
+            : req.t('error.something_went_wrong');
+
+        return res.status(status).json(errorResponse(message, req.t(error.message)));
+    } 
+} 
+
 
 //  ############ PROVIDER REQUEST RESPONSE #############
 
